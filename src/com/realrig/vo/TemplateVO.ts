@@ -1,4 +1,4 @@
-/// <reference path="../../../../typings/uuid/UUID.d.ts"/>
+/// <reference path="../../../../typings/tsd.d.ts"/>
 import * as UUID from "UUID";
 module realrig {
     export class DigitPropertyVO {
@@ -12,7 +12,8 @@ module realrig {
         precision:number;
         uuid:string;
 
-        constructor() {
+        constructor (options? )
+        {
             this.precision = 3;
             this.uuid = UUID.generate();
         }

@@ -1,10 +1,10 @@
 "use strict";
-/// <reference path="../../../../typings/uuid/UUID.d.ts"/>
+/// <reference path="../../../../typings/tsd.d.ts"/>
 var UUID = require("UUID");
 var realrig;
 (function (realrig) {
     var DigitPropertyVO = (function () {
-        function DigitPropertyVO() {
+        function DigitPropertyVO(options) {
             this.precision = 3;
             this.uuid = UUID.generate();
         }
