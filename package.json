@@ -1,14 +1,12 @@
 {
   "name": "application-name",
   "version": "0.0.1",
-  "devDependencies": {
+  "dependencies": {
     "bootstrap": "^3.3.6",
     "gulp": "^3.9.1",
     "gulp-typescript": "^2.13.4",
     "jquery": "^2.2.3",
-    "pixi.js": "^3.0.11"
-  },
-  "dependencies": {
-    "uuid": "https://github.com/LiosK/UUID.js.git"
+    "pixi.js": "^3.0.11",
+    "UUID.js":"https://github.com/bo0liu/UUID.js/tarball/master"
   }
 }
