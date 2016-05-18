@@ -50,9 +50,10 @@ class DrawPixi
                 }
                 else
                 {
-
+                    console.log("1");
                 }
             });
         });
     }
 }
+new DrawPixi();
