@@ -13,44 +13,54 @@ class DrawPixi
     public trackBodyMap:any = {};
 
     constructor() {
-        var self = this;
-        var bodyheight:number = window.innerHeight;
+        let self = this;
+        let bodyheight:number = window.innerHeight;
         if (bodyheight == 0) {
             bodyheight = screen.availHeight;
         }
-        var bodyWidth:number = window.innerWidth;
+        let bodyWidth:number = window.innerWidth;
         if (bodyWidth == 0) {
             bodyWidth = screen.availWidth;
         }
-        var dhstr:string = document.getElementById("navbar-main")[0].style("height");
-        var navHeight:number = <number><any>(dhstr.replace("px", ""));
-        document.getElementById("digitContainer")[0].style("position","absolute").style("width","380px")
-            .style("height",(bodyheight-navHeight).toString() + "px").style("left","10px").style("flow-y","auto");
-        document.getElementById("templateHead")[0].style("position","relative").style("width", (bodyWidth - 440).toString() + "px").style("left", "410px");
-        document.getElementById("templateBody")[0].style("position","relative").style("width", (bodyWidth - 440).toString() + "px").style("left", "410px");
+        // let element:HTMLElement = $("#navbar-main")[0];
+        let navHeight:number = $("#navbar-main").height();
+        //var navHeight:number = <number><any>(dhstr.replace("px", ""));
+        $("#digitContainer").css("position","absolute").width(380).height(bodyheight-navHeight).css("left","10px").css("flow-y","auto");
+        $("#templateHead").css("position","relative").width(bodyWidth - 440).css("left", "410px");
+        $("#templateBody").css("position","relative").width(bodyWidth - 440).css("left", "410px");
 
-        var p:Promise<any> = self.getMudlogTime();
-        p.then((data:any)=>{
-            var digitList:any = data.digites;
-            console.log(data);
-            // self.initDigitItems(digitList);
-            // var container:any = data.container;
-            // self.initTemplateContainer(container);
-            // self.createTrack();
-        })
+        self.initMudlogTime();
     }
 
-    async getMudlogTime():Promise<any>
+    initMudlogTime()
     {
-        return new Promise<any>(resolve => {
-            $.getJSON('data/mudlogtime.json', function (error, data) {
-                if(data)
+        // let mudlogData:any = await this.getMudlogTime();
+        // if(mudlogData)
+        // {
+        //     console.log("md:" + mudlogData);
+        // }
+        let p:Promise<any> = this.getMudlogTime();
+
+        p.then((data:any)=>{
+            let digitList:any = data.digites;
+            self.initDigitItems(digitList);
+            let container:any = data.container;
+            self.initTemplateContainer(container);
+            self.createTrack();
+        });
+    }
+
+    getMudlogTime()
+    {
+        return new Promise<any>((resolve,reject) => {
+            $.getJSON('src/com/realrig/data/mudlogtime.json', function (data, status) {
+                if(data!= null && status == "success")
                 {
                     resolve(data);
                 }
                 else
                 {
-                    console.log("1");
+                    reject("111");
                 }
             });
         });
