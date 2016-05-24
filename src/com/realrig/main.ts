@@ -5,9 +5,12 @@
 /// <reference path="../../../typings/tsd.d.ts"/>
 
 import {TemplateContainerVO} from "./vo/TemplateContainerVO";
+import {DigitPropertyVO} from "./vo/DigitPropertyVO";
+import {DigitParameterDIV} from "./view/DigitParameterDIV";
 
 class DrawPixi
 {
+    public digitParameterDives:DigitParameterDIV[];
     public templateContainerVO:TemplateContainerVO;
     public trackHeadMap:any = {};
     public trackBodyMap:any = {};
@@ -32,22 +35,19 @@ class DrawPixi
         self.initMudlogTime();
     }
 
-    initMudlogTime()
+    async initMudlogTime()
     {
-        // let mudlogData:any = await this.getMudlogTime();
-        // if(mudlogData)
-        // {
-        //     console.log("md:" + mudlogData);
-        // }
-        let p:Promise<any> = this.getMudlogTime();
+        let mudlogData:any = await this.getMudlogTime();
+        if(mudlogData)
+        {
+            console.log("md:" + mudlogData);
+        }
 
-        p.then((data:any)=>{
-            let digitList:any = data.digites;
-            self.initDigitItems(digitList);
-            let container:any = data.container;
-            self.initTemplateContainer(container);
-            self.createTrack();
-        });
+        let digitList:any = mudlogData.digites;
+        this.initDigitItems(digitList);
+        let container:any = mudlogData.container;
+        this.initTemplateContainer(container);
+        this.createTrack();
     }
 
     getMudlogTime()
@@ -64,6 +64,31 @@ class DrawPixi
                 }
             });
         });
+    }
+
+    /**
+     * 解析数字显示块
+     * @param digites
+     */
+    public initDigitItems(digites:any):void {
+        this.digitParameterDives = [];
+        var i:number = 0;
+        for (var index in digites) {
+            var digit:any;
+            digit = digites[index].digitalItem;
+            var digitProperty:DigitPropertyVO = new DigitPropertyVO();
+            digitProperty.lineName = digit.lineName;
+            digitProperty.showName = digit.showName;
+            digitProperty.formulaType = digit.formulaType;
+            digitProperty.formulaA = digit.formulaA;
+            digitProperty.formulaB = digit.formulaB;
+            digitProperty.precision = digit.precision;
+            var dv:DigitParameterDIV = new DigitParameterDIV(digitProperty, number(index));
+            this.digitParameterDives.push(dv);
+            i++;
+        }
+//            var id0:string = this.digitNumberDives[0].attr("id");
+//            var dd:any = d3.select("#" + id0).datum();
     }
 }
 new DrawPixi();
