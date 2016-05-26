@@ -7,9 +7,10 @@
     "typescript": "^1.8.10"
   },
   "dependencies": {
+    "UUID.js": "https://github.com/bo0liu/UUID.js/tarball/master",
     "bootstrap": "^3.3.6",
     "jquery": "^2.2.3",
     "pixi.js": "^3.0.11",
-    "UUID.js":"https://github.com/bo0liu/UUID.js/tarball/master"
+    "ts-loader": "^0.8.2"
   }
 }

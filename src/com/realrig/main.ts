@@ -46,8 +46,8 @@ class DrawPixi
         let digitList:any = mudlogData.digites;
         this.initDigitItems(digitList);
         let container:any = mudlogData.container;
-        this.initTemplateContainer(container);
-        this.createTrack();
+        //this.initTemplateContainer(container);
+        //this.createTrack();
     }
 
     getMudlogTime()
@@ -83,7 +83,7 @@ class DrawPixi
             digitProperty.formulaA = digit.formulaA;
             digitProperty.formulaB = digit.formulaB;
             digitProperty.precision = digit.precision;
-            var dv:DigitParameterDIV = new DigitParameterDIV(digitProperty, number(index));
+            var dv:DigitParameterDIV = new DigitParameterDIV(digitProperty, <number> <any> index);
             this.digitParameterDives.push(dv);
             i++;
         }
